@@ -2,18 +2,22 @@ syntax = "proto3";
 
 package todo;
 
-service Todo {
-  // A simple RPC for retrieving todos
+option go_package ="pb";
 
-  rpc ListTodos(Category) returns (stream TodoItem) {}
+service Todo {
+  // A simple RPC for retrieving to-do items
+
+  rpc List(Category) returns (stream Task) {}
+  rpc Add(Task) returns (Task) {}
 }
 
 message Category {
   string name = 1;
 }
 
-message TodoItem {
+message Task {
   string description = 1;
   Category category = 2;
-  int32 id = 3;
+  string id = 3;
+  bool done = 4;
 }
